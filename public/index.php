@@ -10,9 +10,9 @@
       rel="stylesheet"
     />
 
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/assets/style.css" />
 
-    <script defer src="app.js"></script>
+    <script defer src="/assets/app.js"></script>
   </head>
 
   <body class="light">
