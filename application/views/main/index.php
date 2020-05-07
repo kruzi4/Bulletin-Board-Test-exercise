@@ -6,6 +6,5 @@
       <span><b>Время:</b> <?=$e['time']?></span>
       <span><b>Автор:</b> <?=$e['autor']?></span>
     </div>
-    <?=var_dump($e['time']);?>
   <?php endforeach; ?>
 </main>

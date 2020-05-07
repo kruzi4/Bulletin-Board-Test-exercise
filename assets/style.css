@@ -38,6 +38,10 @@ img {
     height: 180px;
 }
 
+span > b {
+    margin-left: 20px;
+}
+
 /* Navbar */
 
 .navbar {

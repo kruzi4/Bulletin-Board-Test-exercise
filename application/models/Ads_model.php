@@ -11,4 +11,16 @@ class Ads_model extends CI_Model {
     return $query->result_array();
   }
 
+  public function setAds($title, $text, $autor) {
+
+    $data = [
+      'title' => $title,
+      'text' => $text,
+      'autor' => $autor
+    ];
+
+    return $this->db->insert('adverb', $data);
+
+  }
+
 }
