@@ -38,8 +38,8 @@
           </ul>
         </li>
 
-        <li class="nav-item"><a href="/login.php">Войти</a></li>
-        <li class="nav-item"><a href="/register.php">Регистрация</a></li>
+        <li class="nav-item"><a href="/user/login">Войти</a></li>
+        <li class="nav-item"><a href="/user/register">Регистрация</a></li>
       </ul>
     </nav>
     <header>
