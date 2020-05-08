@@ -126,20 +126,20 @@ li.nav-item.active{
 /* Adverts */
 
 .advert {
-  min-height: 100px;
-  width: 50%;
-  color: var(--gray);
-  border: 1px solid var(--text);
-  border-radius: 5px;
-  margin-bottom: 10px;
-  padding: 15px 30px;
-  text-indent: 1.5em;
-  text-align: justify;
-  background: var(--bg-ad);
+    min-height: 100px;
+    width: 50%;
+    color: var(--gray);
+    border: 1px solid var(--text);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 15px 30px;
+    text-indent: 1.5em;
+    text-align: justify;
+    background: var(--bg-ad);
 }
 
 .advert > h3 {
-  text-align: center;
+    text-align: center;
 }
 
 /* Forms */
@@ -172,18 +172,18 @@ li.nav-item.active{
 }
 
 .form-control > a, .settings > a  {
-  text-decoration: none;
-  font-weight: bold;
-  color: var(--text);
-  font-size: 18px;
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--text);
+    font-size: 18px;
 }
 
 .form-control > span {
-  margin: 0 10px;
+    margin: 0 10px;
 }
 
 .settings > .form-control input {
-  width: 70%;
+    width: 70%;
 }
 
 button {
@@ -206,31 +206,31 @@ button:hover {
 /* Dashboard */
 
 section {
-  width: 50%;
-  padding: 0 25%;
+    width: 50%;
+    padding: 0 25%;
 }
 
 section > h2 {
-  text-align: center;
+    text-align: center;
 }
 
 .settings , .add-adverb {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 15px;
-  margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    margin: 15px 0;
 }
 
 .settings {
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 .settings > .form-control > span {
-  font-size: 14px;
-  margin: 0;
+    font-size: 14px;
+    margin: 0;
 }
 
 /* Themes */
