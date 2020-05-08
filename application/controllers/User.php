@@ -5,6 +5,7 @@ class User extends MY_Controller {
 
 	public function __construct() {
 		parent::__construct();
+		$this->load->model('user_model');
 	}
 
 	public function dashboard() {
@@ -14,12 +15,20 @@ class User extends MY_Controller {
 		// }
 		$this->data['title'] = "Личный кабинет";
 
+		if($this->input->post('logout')) {
+			$this->user_model->LogOut();
+			header('Location: /');
+		}
+
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('user/dashboard');
 		$this->load->view('templates/footer');
 	}
 
 	public function login() {
+		if($this->user_model->isLogged())
+			header('Location: /');
+
 		$this->data['title'] = "Авторизация";
 
 		$this->load->view('templates/header', $this->data);
@@ -29,6 +38,20 @@ class User extends MY_Controller {
 
 	public function register() {
 		$this->data['title'] = "Регистрация";
+
+		if($this->user_model->isLogged())
+			header('Location: /');
+
+		$first = $this->input->post('firstname');
+		$second = $this->input->post('secondname');
+		$email = $this->input->post('email');
+		$pass = $this->input->post('pass');
+
+		if($first && $second && $email && $pass ) {
+			$this->user_model->setData($first, $second, $email, $pass);
+			$this->user_model->setAuth($email);
+    	header('Location: /user/dashboard');
+		}
 
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('user/register');

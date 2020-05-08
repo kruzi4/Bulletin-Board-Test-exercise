@@ -112,6 +112,17 @@ li.nav-item.active{
     margin-right: 10px;
 }
 
+.btn-logout {
+    color: var(--text);
+    background: none;
+    margin-top: 0;
+}
+
+.btn-logout:hover {
+    color: var(--text);
+    background: none;
+}
+
 /* Adverts */
 
 .advert {

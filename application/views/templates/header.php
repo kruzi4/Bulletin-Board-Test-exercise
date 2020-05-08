@@ -38,8 +38,16 @@
           </ul>
         </li>
 
-        <li class="nav-item"><a href="/user/login">Войти</a></li>
-        <li class="nav-item"><a href="/user/register">Регистрация</a></li>
+        <?php if( !isset($_COOKIE['user']) ): ?>
+          <li class="nav-item"><a href="/user/login">Войти</a></li>
+          <li class="nav-item"><a href="/user/register">Регистрация</a></li>
+        <?php else: ?>
+          <li class="nav-item"><a href="/user/dashboard">Личный кабинет</a></li>
+          <form action="/user/dashboard" method="post">
+            <input type="hidden" name="logout" value="logout">
+            <button type="submit" class="btn-logout">Выйти</button>
+          </form>
+        <?php endif; ?>
       </ul>
     </nav>
     <header>

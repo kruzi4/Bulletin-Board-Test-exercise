@@ -20,6 +20,7 @@ class Main extends MY_Controller {
 			if($this->ads_model->setAds($title, $text, $user)) {
 
 			}
+
 		}
 
 		$this->load->view('templates/header', $this->data);
