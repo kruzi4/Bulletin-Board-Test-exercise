@@ -7,7 +7,9 @@ class Ads_model extends CI_Model {
   }
 
   public function getAds() {
-    $query = $this->db->get('adverb');
+    $query = $this->db
+    ->order_by('time', 'desc')
+    ->get('adverb');
     return $query->result_array();
   }
 

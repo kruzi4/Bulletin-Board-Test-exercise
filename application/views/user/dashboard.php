@@ -4,12 +4,12 @@
         <div class="settings">
           <div class="form-control form-name">
             <span>Ваше имя</span>
-            <input type="text" name="firstname" value="" placeholder="Константин">
+            <input type="text" name="firstname" value="" placeholder="<?=$user['firstname']?>">
             <button type="button" name="button">Изменить</button>
           </div>
           <div class="form-control form-email">
             <span>Ваш email</span>
-            <input type="text" name="email" value="" placeholder="admin@gmail.com">
+            <input type="text" name="email" value="" placeholder="<?=$user['email']?>">
             <button type="button" name="button">Изменить</button>
           </div>
 

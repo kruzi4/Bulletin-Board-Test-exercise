@@ -20,8 +20,10 @@ class User extends MY_Controller {
 			header('Location: /');
 		}
 
+		$this->data['user'] = $this->user_model->getUser();
+
 		$this->load->view('templates/header', $this->data);
-		$this->load->view('user/dashboard');
+		$this->load->view('user/dashboard', $this->data);
 		$this->load->view('templates/footer');
 	}
 

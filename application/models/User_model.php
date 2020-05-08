@@ -55,6 +55,11 @@ class User_model extends CI_Model {
     unset($_COOKIE['user']);
   }
 
+  function getUser() {
+    $query = $this->db->get_where('users', ['email' => $_COOKIE['user']]);
+    return $query->row_array();
+  }
+
   // public function setUser($firstname, $secondname, $email, $pass) {
   //
   //   $pass = password_hash($pass, PASSWORD_DEFAULT);

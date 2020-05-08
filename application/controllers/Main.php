@@ -6,6 +6,7 @@ class Main extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('ads_model');
+		$this->load->model('user_model');
 	}
 
 	public function index() {
@@ -15,10 +16,11 @@ class Main extends MY_Controller {
 		if($this->input->post('title') && $this->input->post('text')) {
 			$title = $this->input->post('title');
 			$text = $this->input->post('text');
-			$user = "unnamed";
+			$user = $this->user_model->getUser()['firstname'];
+			$user .= " ".$this->user_model->getUser()['secondname'];
 
 			if($this->ads_model->setAds($title, $text, $user)) {
-
+				header('Location: /');
 			}
 
 		}
