@@ -26,13 +26,24 @@ class User extends MY_Controller {
 	}
 
 	public function login() {
+		$this->data['title'] = "Авторизация";
+
 		if($this->user_model->isLogged())
 			header('Location: /');
 
-		$this->data['title'] = "Авторизация";
+		$email = $this->input->post('email');
+		$pass = $this->input->post('password');
+
+		if($email) {
+			if($this->user_model->checkAuthData($email, $pass) === true) {
+				header('Location: /');
+			}else{
+				$this->data['err'] = $this->user_model->checkAuthData($email, $pass);
+			}
+		}
 
 		$this->load->view('templates/header', $this->data);
-		$this->load->view('user/login');
+		$this->load->view('user/login', $this->data);
 		$this->load->view('templates/footer');
 	}
 

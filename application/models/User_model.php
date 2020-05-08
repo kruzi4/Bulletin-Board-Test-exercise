@@ -12,7 +12,7 @@ class User_model extends CI_Model {
     $this->email = $email;
     $this->pass = $pass;
 
-    $pass = password_hash($pass, PASSWORD_DEFAULT);
+    // $pass = password_hash($pass, PASSWORD_DEFAULT);
 
     $data = [
       'firstname' => $firstname,
@@ -24,6 +24,22 @@ class User_model extends CI_Model {
     return $this->db->insert('users', $data);
 
     $this->setAuth($this->email);
+  }
+
+  public function checkAuthData($email, $pass) {
+    $query = $this->db->get_where('users', array(
+      'email' => $email,
+      'pass' => $pass
+    ));
+    $user = $query->row_array();
+
+    if($user['email'] == '')
+        return 'Пользователя с таким email не существует';
+    else if($pass == $user['pass']) {
+        $this->setAuth($email);
+        return true;
+    }else
+        return 'Пароли не совпадают';
   }
 
   public function setAuth($email) {
