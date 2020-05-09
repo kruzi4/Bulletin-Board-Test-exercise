@@ -12,6 +12,7 @@ class Main extends MY_Controller {
 	public function index() {
 		$this->data['title'] = "Главная страница";
 		$this->data['ads'] = $this->ads_model->getAds();
+		$this->data['isLogged'] = $this->user_model->isLogged();
 
 		if($this->input->post('title') && $this->input->post('text')) {
 			$title = $this->input->post('title');

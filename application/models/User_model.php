@@ -55,10 +55,39 @@ class User_model extends CI_Model {
     unset($_COOKIE['user']);
   }
 
-  function getUser() {
+  public function getUser() {
     $query = $this->db->get_where('users', ['email' => $_COOKIE['user']]);
     return $query->row_array();
   }
+
+  public function setUserName($name) {
+    $this->db->where('email', $_COOKIE['user']);
+    $this->db->update('users', ['firstname' => $name]);
+  }
+
+  public function setUserEmail($email) {
+    $this->db->where('id', $this->getUser()['id']);
+    $this->db->update('users', ['email' => $email]);
+  }
+
+  public function setUserPassword($id,$old_pass,$pass) {
+    $this->id = $id;
+    $this->old_pass = $old_pass;
+    $this->pass = $pass;
+
+    $query = $this->db->get_where('users', ['id' => $this->id]);
+    $user = $query->row_array();
+
+    if($user['pass'] == $this->old_pass && $this->pass != $this->old_pass ) {
+      $this->db->where('id', $this->id );
+      $this->db->update('users', ['pass' => $this->pass]);
+    }else if($this->old_pass == '' || $this->pass == '' ){
+      return "Вы не ввели данные";
+    }else if($user['pass'] != $this->old_pass){
+      return "Пароль неправильный";
+    }
+  }
+
 
   // public function setUser($firstname, $secondname, $email, $pass) {
   //

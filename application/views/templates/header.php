@@ -38,7 +38,7 @@
           </ul>
         </li>
 
-        <?php if( !isset($_COOKIE['user']) ): ?>
+        <?php if( !$isLogged ): ?>
           <li class="nav-item"><a href="/user/login">Войти</a></li>
           <li class="nav-item"><a href="/user/register">Регистрация</a></li>
         <?php else: ?>

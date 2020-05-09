@@ -2,22 +2,30 @@
       <section>
         <h2>Личная информация</h2>
         <div class="settings">
+
           <div class="form-control form-name">
-            <span>Ваше имя</span>
-            <input type="text" name="firstname" value="" placeholder="<?=$user['firstname']?>">
-            <button type="button" name="button">Изменить</button>
+            <form class="" action="/user/dashboard" method="post">
+              <span>Ваше имя</span>
+              <input type="text" name="firstname" value="" placeholder="<?=$user['firstname']?>">
+              <button type="submit" name="button">Изменить</button>
+            </form>
           </div>
+
           <div class="form-control form-email">
-            <span>Ваш email</span>
-            <input type="text" name="email" value="" placeholder="<?=$user['email']?>">
-            <button type="button" name="button">Изменить</button>
+            <form class="" action="/user/dashboard" method="post">
+              <span>Ваш email</span>
+              <input type="text" name="email" value="" placeholder="<?=$user['email']?>">
+              <button type="submit" name="button">Изменить</button>
+            </form>
           </div>
 
           <div class="form-control form-pass">
-            <span>Ваш пароль</span>
-            <input type="password" name="old-pass" value="" placeholder="Старый пароль">
-            <input type="password" name="pass" value="" placeholder="Новый пароль">
-            <button type="button" name="button">Изменить</button>
+            <form class="" action="/user/dashboard" method="post">
+              <span>Ваш пароль</span>
+              <input type="password" name="old-pass" value="" placeholder="Старый пароль">
+              <input type="password" name="pass" value="" placeholder="Новый пароль">
+              <button type="submit" name="button">Изменить</button>
+            </form>
           </div>
 
         </div>

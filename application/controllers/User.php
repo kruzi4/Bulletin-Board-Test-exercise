@@ -9,11 +9,26 @@ class User extends MY_Controller {
 	}
 
 	public function dashboard() {
-		// if(!is_user()) {
-		// 	$this->load->helper('url-helper');
-		// 	redirect('/user/login', 'location');
-		// }
 		$this->data['title'] = "Личный кабинет";
+		$this->data['isLogged'] = $this->user_model->isLogged();
+
+		$id = $this->user_model->getUser()['id'];
+
+		$firstname = $this->input->post('firstname');
+		if( $firstname ) {
+			$this->user_model->setUserName( $firstname );
+		}
+
+		$email = $this->input->post('email');
+		if( $email ) {
+			$this->user_model->setUserEmail( $email );
+		}
+
+		$pass = $this->input->post('pass');
+		$old_pass = $this->input->post('old-pass');
+		if( $pass ) {
+			$this->user_model->setUserPassword( $id , $old_pass , $pass );
+		}
 
 		if($this->input->post('logout')) {
 			$this->user_model->LogOut();
@@ -29,6 +44,7 @@ class User extends MY_Controller {
 
 	public function login() {
 		$this->data['title'] = "Авторизация";
+		$this->data['isLogged'] = $this->user_model->isLogged();
 
 		if($this->user_model->isLogged())
 			header('Location: /');
@@ -51,6 +67,7 @@ class User extends MY_Controller {
 
 	public function register() {
 		$this->data['title'] = "Регистрация";
+		$this->data['isLogged'] = $this->user_model->isLogged();
 
 		if($this->user_model->isLogged())
 			header('Location: /');
