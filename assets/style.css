@@ -235,6 +235,23 @@ section > h2 {
     margin: 0;
 }
 
+.password {
+    position: relative;
+}
+.password-control {
+    position: absolute;
+    top: 27px;
+    right: -30px;
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    opacity: 60%;
+    background: url(/assets/img/view.svg) 0 0 no-repeat;
+}
+.password-control.view {
+	  background: url(/assets/img/no-view.svg) 0 0 no-repeat;
+}
+
 /* Themes */
 
 

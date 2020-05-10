@@ -12,6 +12,9 @@ class User extends MY_Controller {
 		$this->data['title'] = "Личный кабинет";
 		$this->data['isLogged'] = $this->user_model->isLogged();
 
+		if(!$this->user_model->isLogged())
+			header('Location: /');
+
 		$id = $this->user_model->getUser()['id'];
 
 		$firstname = $this->input->post('firstname');
@@ -43,20 +46,27 @@ class User extends MY_Controller {
 	}
 
 	public function login() {
-		$this->data['title'] = "Авторизация";
-		$this->data['isLogged'] = $this->user_model->isLogged();
+		$user = $this->user_model;
 
-		if($this->user_model->isLogged())
+		if($user->isLogged())
 			header('Location: /');
 
 		$email = $this->input->post('email');
 		$pass = $this->input->post('password');
 
+		$this->data = [
+			'title' => 'Авторизация',
+			'isLogged' => $user->isLogged(),
+			'err' => '',
+			'input_email' => $email,
+			'input_pass' => $pass
+		];
+
 		if($email) {
-			if($this->user_model->checkAuthData($email, $pass) === true) {
-				header('Location: /');
+			if($user->checkAuthData($email, $pass) === true) {
+				header('Location: /user/dashboard');
 			}else{
-				$this->data['err'] = $this->user_model->checkAuthData($email, $pass);
+				$this->data['err'] = $user->checkAuthData($email, $pass);
 			}
 		}
 
@@ -66,22 +76,33 @@ class User extends MY_Controller {
 	}
 
 	public function register() {
-		$this->data['title'] = "Регистрация";
-		$this->data['isLogged'] = $this->user_model->isLogged();
-
-		if($this->user_model->isLogged())
-			header('Location: /');
+		$user = $this->user_model;
 
 		$first = $this->input->post('firstname');
 		$second = $this->input->post('secondname');
 		$email = $this->input->post('email');
 		$pass = $this->input->post('pass');
 
-		if($first && $second && $email && $pass ) {
-			$this->user_model->setData($first, $second, $email, $pass);
-			$this->user_model->setAuth($email);
-    	header('Location: /user/dashboard');
+		if($first) {
+			$user->checkRegData($first, $second, $email, $pass);
+			if($user->checkRegData($first, $second, $email, $pass === true)) {
+	    	header('Location: /user/dashboard');
+				$user->setAuth($email);
+			}
 		}
+
+		$this->data = [
+			'title' => 'Регистрация',
+			'isLogged' => $user->isLogged(),
+			'err' => $user->checkRegData($first, $second, $email, $pass),
+			'inputFirst' => $first,
+			'inputSecond' => $second,
+			'inputEmail' => $email,
+			'inputPass' => $pass
+		];
+
+		if($user->isLogged())
+			header('Location: /');
 
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('user/register');

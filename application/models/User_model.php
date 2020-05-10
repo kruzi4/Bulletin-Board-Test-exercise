@@ -6,40 +6,61 @@ class User_model extends CI_Model {
     $this->load->database();
   }
 
-  public function setData($firstname, $secondname, $email, $pass) {
+  public function checkRegData($firstname, $secondname, $email, $pass) {
     $this->firstname = $firstname;
     $this->secondname = $secondname;
     $this->email = $email;
     $this->pass = $pass;
 
-    // $pass = password_hash($pass, PASSWORD_DEFAULT);
-
-    $data = [
-      'firstname' => $firstname,
-      'secondname' => $secondname,
+    $query = $this->db->get_where('users', [
       'email' => $email,
-      'pass' => $pass
+    ]);
+    $user = $query->row_array();
+
+    if($firstname == '' || $secondname == '' || $email == '' || $pass == '')
+      return false;
+    else if($email == $user['email'])
+      return "Данный адресс электронной почты уже зарегестрирован";
+    else if(strlen($pass) < 3)
+      return "Пароль слишком короткий, минимум 3 символа";
+    else{
+      $this->setRegData();
+      $this->setAuth($this->email);
+      return true;
+    }
+
+  }
+
+  public function setRegData() {
+    $data = [
+      'firstname' => $this->firstname,
+      'secondname' => $this->secondname,
+      'email' => $this->email,
+      'pass' => $this->pass
     ];
-
     return $this->db->insert('users', $data);
-
-    $this->setAuth($this->email);
   }
 
   public function checkAuthData($email, $pass) {
-    $query = $this->db->get_where('users', array(
+    $query = $this->db->get_where('users', [
       'email' => $email,
       'pass' => $pass
-    ));
+    ]);
     $user = $query->row_array();
 
-    if($user['email'] == '')
-        return 'Пользователя с таким email не существует';
+    if($email != $user['email'] && $pass != '')
+        return 'Пароль и логин не совпадают';
+    else if($pass != $user['pass'])
+        return 'Вы ввели не правильный пароль';
+    else if($pass == '')
+        return 'Введите пароль';
+    else if($email == '')
+        return 'Введите email';
+
     else if($pass == $user['pass']) {
         $this->setAuth($email);
         return true;
-    }else
-        return 'Пароли не совпадают';
+    }
   }
 
   public function setAuth($email) {
@@ -56,8 +77,10 @@ class User_model extends CI_Model {
   }
 
   public function getUser() {
-    $query = $this->db->get_where('users', ['email' => $_COOKIE['user']]);
-    return $query->row_array();
+    if($this->isLogged()) {
+      $query = $this->db->get_where('users', ['email' => $_COOKIE['user']]);
+      return $query->row_array();
+    }
   }
 
   public function setUserName($name) {
@@ -87,21 +110,4 @@ class User_model extends CI_Model {
       return "Пароль неправильный";
     }
   }
-
-
-  // public function setUser($firstname, $secondname, $email, $pass) {
-  //
-  //   $pass = password_hash($pass, PASSWORD_DEFAULT);
-  //
-  //   $data = [
-  //     'firstname' => $firstname,
-  //     'secondname' => $secondname,
-  //     'email' => $email,
-  //     'pass' => $pass
-  //   ];
-  //
-  //   return $this->db->insert('users', $data);
-  //
-  // }
-
 }
