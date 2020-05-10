@@ -85,10 +85,6 @@ class User extends MY_Controller {
 
 		if($first) {
 			$user->checkRegData($first, $second, $email, $pass);
-			if($user->checkRegData($first, $second, $email, $pass === true)) {
-	    	header('Location: /user/dashboard');
-				$user->setAuth($email);
-			}
 		}
 
 		$this->data = [

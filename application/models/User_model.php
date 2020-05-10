@@ -12,23 +12,26 @@ class User_model extends CI_Model {
     $this->email = $email;
     $this->pass = $pass;
 
-    $query = $this->db->get_where('users', [
-      'email' => $email,
-    ]);
-    $user = $query->row_array();
-
     if($firstname == '' || $secondname == '' || $email == '' || $pass == '')
       return false;
-    else if($email == $user['email'])
-      return "Данный адресс электронной почты уже зарегестрирован";
     else if(strlen($pass) < 3)
       return "Пароль слишком короткий, минимум 3 символа";
+    else if($this->emailExists($email))
+      return "Данный адрес электронной почты уже зарегестрирован";
     else{
       $this->setRegData();
       $this->setAuth($this->email);
-      return true;
     }
+  }
 
+  function emailExists($email) {
+    $this->db->where('email',$email);
+    $query = $this->db->get('users');
+    if ($query->num_rows() > 0){
+        return true;
+    }else{
+        return false;
+    }
   }
 
   public function setRegData() {
@@ -38,7 +41,9 @@ class User_model extends CI_Model {
       'email' => $this->email,
       'pass' => $this->pass
     ];
-    return $this->db->insert('users', $data);
+    $this->db->insert('users', $data);
+  	header('Location: /user/dashboard');
+    return true;
   }
 
   public function checkAuthData($email, $pass) {
