@@ -20,7 +20,7 @@ class User_model extends CI_Model {
       return "Данный адрес электронной почты уже зарегестрирован";
     else{
       $this->setRegData();
-      $this->setAuth($this->email);
+      $this->setAuth($this->getUser()['id']);
     }
   }
 
@@ -63,33 +63,31 @@ class User_model extends CI_Model {
         return 'Введите email';
 
     else if($pass == $user['pass']) {
-        $this->setAuth($email);
+        $this->setAuth($user['id']);
         return true;
     }
   }
 
-  public function setAuth($email) {
-    setcookie('user', $email, time() + 3600, '/');
+  public function setAuth($user_id) {
+    setcookie('user', $user_id, time() + 3600, '/');
+  }
+
+  public function logOut() {
+    setcookie('user', $this->id, time() - 3600, '/');
+    unset($_COOKIE['user']);
   }
 
   public function isLogged() {
     return isset($_COOKIE['user']) ? true : false;
   }
 
-  public function logOut() {
-    setcookie('user', $this->email, time() - 3600, '/');
-    unset($_COOKIE['user']);
-  }
-
   public function getUser() {
-    if($this->isLogged()) {
-      $query = $this->db->get_where('users', ['email' => $_COOKIE['user']]);
-      return $query->row_array();
-    }
+    $query = $this->db->get_where('users', ['id' => $_COOKIE['user']]);
+    return $query->row_array();
   }
 
   public function setUserName($name) {
-    $this->db->where('email', $_COOKIE['user']);
+    $this->db->where('id', $this->getUser()['id']);
     $this->db->update('users', ['firstname' => $name]);
   }
 
