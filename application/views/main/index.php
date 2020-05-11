@@ -7,4 +7,5 @@
       <span><b>Автор:</b> <?=$e['autor']?></span>
     </div>
   <?php endforeach; ?>
+  <div class="pages"><?=$pages?></div>
 </main>

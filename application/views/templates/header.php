@@ -19,7 +19,7 @@
     <!-- Navbar -->
     <nav class="navbar">
       <ul class="navbar-nav">
-        <li class="nav-item"><a href="/index.php">Главная</a></li>
+        <li class="nav-item"><a href="/">Главная</a></li>
 
         <!-- Dropdown -->
 
