@@ -6,13 +6,6 @@ class Ads_model extends CI_Model {
     $this->load->database();
   }
 
-  public function getAds() {
-    $query = $this->db
-      ->order_by('time', 'desc')
-      ->get('adverb');
-    return $query->result_array();
-  }
-
   public function getAdsOnPage($row_count, $offset) {
     $query = $this->db
       ->order_by('time', 'desc')
@@ -20,7 +13,7 @@ class Ads_model extends CI_Model {
     return $query->result_array();
 }
 
-  public function setAds($title, $text, $autor) {
+  public function setAds($title, $text, $autor = 'unnamed') {
     $data = [
       'title' => $title,
       'text' => $text,

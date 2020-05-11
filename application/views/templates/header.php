@@ -19,7 +19,9 @@
     <!-- Navbar -->
     <nav class="navbar">
       <ul class="navbar-nav">
-        <li class="nav-item"><a href="/">Главная</a></li>
+        <li class="nav-item">
+          <a href="/" <?=show_active_menu(0);?>>Главная</a>
+        </li>
 
         <!-- Dropdown -->
 
@@ -39,10 +41,16 @@
         </li>
 
         <?php if( !$isLogged ): ?>
-          <li class="nav-item"><a href="/user/login">Войти</a></li>
-          <li class="nav-item"><a href="/user/register">Регистрация</a></li>
+          <li class="nav-item">
+            <a href="/user/login" <?=show_active_menu('login');?>">Войти</a>
+          </li>
+          <li class="nav-item">
+            <a href="/user/register" <?=show_active_menu('register');?>>Регистрация</a>
+          </li>
         <?php else: ?>
-          <li class="nav-item"><a href="/user/dashboard">Личный кабинет</a></li>
+          <li class="nav-item">
+            <a href="/user/dashboard" <?=show_active_menu('dashboard');?>>Личный кабинет</a>
+          </li>
           <form action="/user/dashboard" method="post">
             <input type="hidden" name="logout" value="logout">
             <button type="submit" class="btn-logout">Выйти</button>

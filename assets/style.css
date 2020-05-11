@@ -42,16 +42,6 @@ span > b {
     margin-left: 20px;
 }
 
-.pages>a, .pages>strong {
-    font-size: 20px;
-    margin-right: 5px;
-    text-decoration: none;
-}
-
-.pages>a {
-  color: var(--text);
-}
-
 /* Navbar */
 
 .navbar {
@@ -68,9 +58,14 @@ span > b {
     height: 100%;
 }
 
-li.nav-item.active{
+li.nav-item>a.active{
+    pointer-events: none;
+    cursor: default;
     font-weight: bold;
     cursor: default;
+    border-bottom: 2px solid;
+    padding: 4px 0;
+    border-radius: 3px;
 }
 
 .dropdown {
@@ -274,8 +269,19 @@ section > h2 {
 	  background: url(/assets/img/no-view.svg) 0 0 no-repeat;
 }
 
-/* Themes */
+/* Pagination */
 
+.pages>a, .pages>strong {
+    font-size: 20px;
+    margin-right: 5px;
+    text-decoration: none;
+}
+
+.pages>a {
+    color: var(--text);
+}
+
+/* Themes */
 
 :root {
     --gray0: #f8f8f8;
