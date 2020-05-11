@@ -23,7 +23,7 @@ class User extends MY_Controller {
 		}
 
 		$email = $this->input->post('email');
-		if( $email ) {
+		if( $email && !$this->user_model->emailExists($email) ) {
 			$this->user_model->setUserEmail( $email );
 		}
 

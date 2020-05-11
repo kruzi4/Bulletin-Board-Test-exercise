@@ -20,7 +20,8 @@ class User_model extends CI_Model {
       return "Данный адрес электронной почты уже зарегестрирован";
     else{
       $this->setRegData();
-      $this->setAuth($this->getUser()['id']);
+      $this->checkAuthData($email, $pass);
+      // $this->setAuth($this->getUser()['id']);
     }
   }
 
@@ -54,7 +55,7 @@ class User_model extends CI_Model {
     $user = $query->row_array();
 
     if($email != $user['email'] && $pass != '')
-        return 'Пароль и логин не совпадают';
+        return 'Пароль или логин не совпадают';
     else if($pass != $user['pass'])
         return 'Вы ввели не правильный пароль';
     else if($pass == '')
