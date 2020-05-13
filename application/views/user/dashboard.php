@@ -34,7 +34,9 @@
       <section>
         <div class="add-adverb">
           <h2>Добавить объявление</h2>
-          <form class="form-control" action="/" method="post">
+          <form enctype="multipart/form-data" class="form-control" action="/user/dashboard" method="post">
+            <label class="form-control" for="userfile">Загрузить фотографию</label>
+            <input type="file" name="userfile" class="upload" id="userfile">
             <input type="text" name="title" value="" placeholder="Введите заголовок">
             <textarea name="text" rows="4" cols="80" placeholder="Введите текст объявления"></textarea>
             <button type="submit" name="submit">Добавить</button>

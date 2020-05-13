@@ -33,13 +33,10 @@ main {
 }
 
 img {
-    margin: 2em 0 0;
-    width: 180px;
-    height: 180px;
-}
-
-span > b {
-    margin-left: 20px;
+    width: 200px;
+    height: auto;
+    border-radius: 5px;
+    flex: 1;
 }
 
 /* Navbar */
@@ -132,21 +129,16 @@ li.nav-item>a.active{
 /* Adverts */
 
 div.advert {
-    min-height: 100px;
+    min-height: 200px;
     width: 50%;
     color: var(--gray);
     border: 1px solid var(--text);
     border-radius: 5px;
     margin-bottom: 20px;
     padding: 15px 30px;
-    text-indent: 1.5em;
     text-align: justify;
     background: var(--bg-ad);
     transition: all 0.6s ease;
-}
-
-.advert > h3, .advert > p, .advert > span {
-    transition: none;
 }
 
 .advert:hover {
@@ -155,8 +147,34 @@ div.advert {
     transform: scale(1.1);
 }
 
-.advert > h3 {
+.advert > .describtion {
+    display: flex;
+}
+
+.advert > .describtion > .text {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2em;
+    flex: 2;
+}
+
+.advert > .describtion > .text > h3 {
+    margin: 0;
     text-align: center;
+    text-indent: 0;
+}
+
+.advert > .describtion > .text > p {
+    text-indent: 1.5em;
+    text-align: justify;
+}
+
+.advert > .describtion > .text > .info {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    height: 100%;
+    font-size: 14px;
 }
 
 /* Forms */
@@ -203,6 +221,35 @@ div.advert {
 
 .settings > .form-control input {
     width: 80%;
+}
+
+input.upload {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+label {
+  height: 50px;
+  border-radius: 4px;
+  text-align: center;
+  cursor: pointer;
+  display: block;
+  transition: all 0.18s ease-in-out;
+  border: 1px solid silver;
+  color: #757575;
+  background: #fff;
+  font-weight: 600;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+label:hover {
+    color: white;
+    background: var(--btn-hover);
 }
 
 button {

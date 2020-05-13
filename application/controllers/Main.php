@@ -27,18 +27,6 @@ class Main extends MY_Controller {
 		$this->pagination->initialize($config);
 		$this->data['pages'] = $this->pagination->create_links();
 
-		if($this->input->post('title') && $this->input->post('text')) {
-			$title = $this->input->post('title');
-			$text = $this->input->post('text');
-			$user = $this->user_model->getUser()['firstname'];
-			$user .= " ".$this->user_model->getUser()['secondname'];
-
-			if($this->ads_model->setAds($title, $text, $user)) {
-				header('Location: /');
-			}
-
-		}
-
 		$this->load->view('templates/header', $this->data);
 		$this->load->view('main/index', $this->data);
 		$this->load->view('templates/footer');

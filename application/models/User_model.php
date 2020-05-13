@@ -7,9 +7,9 @@ class User_model extends CI_Model {
   }
 
   public function checkRegData($firstname, $secondname, $email, $pass) {
-    $this->firstname = $firstname;
-    $this->secondname = $secondname;
-    $this->email = $email;
+    $this->firstname = trim(filter_var($firstname, FILTER_SANITIZE_STRING));
+    $this->secondname = trim(filter_var($secondname, FILTER_SANITIZE_STRING));
+    $this->email = trim(filter_var($email, FILTER_VALIDATE_EMAIL));
     $this->pass = $pass;
 
     if($firstname == '' || $secondname == '' || $email == '' || $pass == '')
@@ -21,14 +21,13 @@ class User_model extends CI_Model {
     else{
       $this->setRegData();
       $this->checkAuthData($email, $pass);
-      // $this->setAuth($this->getUser()['id']);
     }
   }
 
   function emailExists($email) {
     $this->db->where('email',$email);
     $query = $this->db->get('users');
-    if ($query->num_rows() > 0){
+    if($query->num_rows() > 0){
         return true;
     }else{
         return false;
@@ -88,11 +87,13 @@ class User_model extends CI_Model {
   }
 
   public function setUserName($name) {
+    $name = trim(filter_var($name, FILTER_SANITIZE_STRING));
     $this->db->where('id', $this->getUser()['id']);
     $this->db->update('users', ['firstname' => $name]);
   }
 
   public function setUserEmail($email) {
+    $email = trim(filter_var($email, FILTER_SANITIZE_STRING));
     $this->db->where('id', $this->getUser()['id']);
     $this->db->update('users', ['email' => $email]);
   }
@@ -108,7 +109,7 @@ class User_model extends CI_Model {
     if($user['pass'] == $this->old_pass && $this->pass != $this->old_pass ) {
       $this->db->where('id', $this->id );
       $this->db->update('users', ['pass' => $this->pass]);
-    }else if($this->old_pass == '' || $this->pass == '' ){
+    }else if(trim($this->old_pass) == '' || trim($this->pass) == '' ){
       return "Вы не ввели данные";
     }else if($user['pass'] != $this->old_pass){
       return "Пароль неправильный";

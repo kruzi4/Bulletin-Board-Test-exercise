@@ -13,11 +13,12 @@ class Ads_model extends CI_Model {
     return $query->result_array();
 }
 
-  public function setAds($title, $text, $autor = 'unnamed') {
+  public function setAds($title, $text, $autor = 'unnamed', $image = 'img_cat') {
     $data = [
       'title' => $title,
       'text' => $text,
-      'autor' => $autor
+      'autor' => $autor,
+      'image' => $image
     ];
     return $this->db->insert('adverb', $data);
   }
